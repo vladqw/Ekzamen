@@ -10,6 +10,6 @@
 
     <Grid>
         <TextBlock Text="Страница Модера" Style="{StaticResource txtZagolovok}"/>
-        <Button Name="frfr" Content="frfrfrrf" Width="100" Height="100"/>
+        <Button Name="frfr" Content="55445" Width="100" Height="100"/>
     </Grid>
 </Page>
