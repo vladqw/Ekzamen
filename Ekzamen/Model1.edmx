@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id_Car" />
+          </Key>
+          <Property Name="Id_Car" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Car" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id_Object" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "2020-41П-ТихоновВВ.dbo.Car2" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Car2">
+          <Key>
+            <PropertyRef Name="Id_Car" />
+            <PropertyRef Name="Name_Car2" />
+          </Key>
+          <Property Name="Id_Car" Type="int" Nullable="false" />
+          <Property Name="Name_Car2" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "2020-41П-ТихоновВВ.dbo.City" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id_City" />
+            <PropertyRef Name="Name_City" />
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Id_City" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_City" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id_Object" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id_Client" />
+          </Key>
+          <Property Name="Id_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="SurName" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dogovors">
+          <Key>
+            <PropertyRef Name="id_Dogovor" />
+          </Key>
+          <Property Name="Strah_summ" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Srock" Type="int" Nullable="false" />
+          <Property Name="Id_Object" Type="int" Nullable="false" />
+          <Property Name="Id_Client" Type="int" Nullable="false" />
+          <Property Name="id_Dogovor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Strah_Plateseh" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Object_strah" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Object" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="Id_Review" />
+          </Key>
+          <Property Name="Id_Review" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nchar" MaxLength="100" />
+          <Property Name="Rating" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Sotrudniki">
+          <Key>
+            <PropertyRef Name="idSotrud" />
+          </Key>
+          <Property Name="idSotrud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+          <Property Name="First_Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Last_Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Middle_Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Car_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car2_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Car2" Type="Self.Car2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id_Car" />
+            </Principal>
+            <Dependent Role="Car2">
+              <PropertyRef Name="Id_Car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dogovors_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Dogovors" Type="Self.Dogovors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_Client" />
+            </Principal>
+            <Dependent Role="Dogovors">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dogovors_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dogovors" Type="Self.Dogovors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="Dogovors">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudniki_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role1">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dogovors" EntityType="Self.Dogovors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Car2" EntityType="Self.Car2" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Car2].[Id_Car] AS [Id_Car], 
+    [Car2].[Name_Car2] AS [Name_Car2]
+    FROM [dbo].[Car2] AS [Car2]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="City" EntityType="Self.City" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [City].[Id_City] AS [Id_City], 
+    [City].[Name_City] AS [Name_City], 
+    [City].[Id_Object] AS [Id_Object]
+    FROM [dbo].[City] AS [City]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Car_Object" Association="Self.FK_Car_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car2_Car" Association="Self.FK_Car2_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Car2" EntitySet="Car2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Object" Association="Self.FK_City_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dogovors_Client" Association="Self.FK_Dogovors_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Dogovors" EntitySet="Dogovors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dogovors_Object" Association="Self.FK_Dogovors_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Dogovors" EntitySet="Dogovors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudniki_Role" Association="Self.FK_Sotrudniki_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role1" Association="Self.FK_User_Role1">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id_Car" />
+          </Key>
+          <Property Name="Id_Car" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Car" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id_Object" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Car_Object" FromRole="Car" ToRole="Object" />
+          <NavigationProperty Name="Car2" Relationship="Self.FK_Car2_Car" FromRole="Car" ToRole="Car2" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id_Client" />
+          </Key>
+          <Property Name="Id_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SurName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Dogovors" Relationship="Self.FK_Dogovors_Client" FromRole="Client" ToRole="Dogovors" />
+        </EntityType>
+        <EntityType Name="Dogovors">
+          <Key>
+            <PropertyRef Name="id_Dogovor" />
+          </Key>
+          <Property Name="Strah_summ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Srock" Type="Int32" Nullable="false" />
+          <Property Name="Id_Object" Type="Int32" Nullable="false" />
+          <Property Name="Id_Client" Type="Int32" Nullable="false" />
+          <Property Name="id_Dogovor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Strah_Plateseh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Dogovors_Client" FromRole="Dogovors" ToRole="Client" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Dogovors_Object" FromRole="Dogovors" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Object_strah" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Object" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Car_Object" FromRole="Object" ToRole="Car" />
+          <NavigationProperty Name="Dogovors" Relationship="Self.FK_Dogovors_Object" FromRole="Object" ToRole="Dogovors" />
+          <NavigationProperty Name="City" Relationship="Self.FK_City_Object" FromRole="Object" ToRole="City" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="Id_Review" />
+          </Key>
+          <Property Name="Id_Review" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Rating" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Sotrudniki_Role" FromRole="Role" ToRole="Sotrudniki" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role1" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Sotrudniki">
+          <Key>
+            <PropertyRef Name="idSotrud" />
+          </Key>
+          <Property Name="idSotrud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <Property Name="First_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Sotrudniki_Role" FromRole="Sotrudniki" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role1" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Car2">
+          <Key>
+            <PropertyRef Name="Id_Car" />
+            <PropertyRef Name="Name_Car2" />
+          </Key>
+          <Property Name="Id_Car" Type="Int32" Nullable="false" />
+          <Property Name="Name_Car2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Car2_Car" FromRole="Car2" ToRole="Car" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id_City" />
+            <PropertyRef Name="Name_City" />
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Id_City" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_City" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id_Object" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_City_Object" FromRole="City" ToRole="Object" />
+        </EntityType>
+        <Association Name="FK_Car_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car2_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="Car2" Type="Self.Car2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id_Car" />
+            </Principal>
+            <Dependent Role="Car2">
+              <PropertyRef Name="Id_Car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dogovors_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Dogovors" Type="Self.Dogovors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_Client" />
+            </Principal>
+            <Dependent Role="Dogovors">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dogovors_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dogovors" Type="Self.Dogovors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="Dogovors">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Id_Object" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Id_Object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudniki_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role1">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Car" EntityType="Self.Car" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Dogovors" EntityType="Self.Dogovors" />
+          <EntitySet Name="Object" EntityType="Self.Object" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Car2" EntityType="Self.Car2" />
+          <EntitySet Name="City" EntityType="Self.City" />
+          <AssociationSet Name="FK_Car_Object" Association="Self.FK_Car_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car2_Car" Association="Self.FK_Car2_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Car2" EntitySet="Car2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dogovors_Client" Association="Self.FK_Dogovors_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Dogovors" EntitySet="Dogovors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dogovors_Object" Association="Self.FK_Dogovors_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Dogovors" EntitySet="Dogovors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Object" Association="Self.FK_City_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudniki_Role" Association="Self.FK_Sotrudniki_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role1" Association="Self.FK_User_Role1">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="Model.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="Id_Car" ColumnName="Id_Car" />
+                <ScalarProperty Name="Name_Car" ColumnName="Name_Car" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dogovors">
+            <EntityTypeMapping TypeName="Model.Dogovors">
+              <MappingFragment StoreEntitySet="Dogovors">
+                <ScalarProperty Name="Strah_summ" ColumnName="Strah_summ" />
+                <ScalarProperty Name="Srock" ColumnName="Srock" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="id_Dogovor" ColumnName="id_Dogovor" />
+                <ScalarProperty Name="Strah_Plateseh" ColumnName="Strah_Plateseh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object">
+            <EntityTypeMapping TypeName="Model.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="Object_strah" ColumnName="Object_strah" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Model.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="Id_Review" ColumnName="Id_Review" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sotrudniki">
+            <EntityTypeMapping TypeName="Model.Sotrudniki">
+              <MappingFragment StoreEntitySet="Sotrudniki">
+                <ScalarProperty Name="idSotrud" ColumnName="idSotrud" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Car2">
+            <EntityTypeMapping TypeName="Model.Car2">
+              <MappingFragment StoreEntitySet="Car2">
+                <ScalarProperty Name="Id_Car" ColumnName="Id_Car" />
+                <ScalarProperty Name="Name_Car2" ColumnName="Name_Car2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Id_City" ColumnName="Id_City" />
+                <ScalarProperty Name="Name_City" ColumnName="Name_City" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

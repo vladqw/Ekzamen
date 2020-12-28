@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="618c62967f5446ff978f7792dbe67be1" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Car" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Client" Width="1.5" PointX="3.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Dogovors" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Object" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Reviews" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Role" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Sotrudniki" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="11" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Car2" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.City" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_Car_Object" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Car2_Car" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Dogovors_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Dogovors_Object" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_City_Object" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Sotrudniki_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_User_Role1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
